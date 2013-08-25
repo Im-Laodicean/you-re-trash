@@ -11,10 +11,10 @@ import tools.ResourceManager;
 public class TexturedImage extends RenderableObject{
 
 	protected String imagePath;
-	protected String key;
+	protected int key;
 
 	//Basic constructor
-	public TexturedImage(int x, int y, int width, int height, String imagePath, String key){
+	public TexturedImage(int x, int y, int width, int height, String imagePath, int key){
 		super(x,y,width,height);
 		
 		this.imagePath = imagePath;
@@ -28,7 +28,7 @@ public class TexturedImage extends RenderableObject{
 	}
 	
 	//Sets width and height to image dimensions
-	public TexturedImage(int x, int y, String imagePath, String key){
+	public TexturedImage(int x, int y, String imagePath, int key){
 		this.imagePath = imagePath;
 		this.key = key;
 		
@@ -72,11 +72,11 @@ public class TexturedImage extends RenderableObject{
 		this.imagePath = imagePath;
 	}
 
-	public String getKey() {
+	public int getKey() {
 		return key;
 	}
 
-	public void setKey(String key) {
+	public void setKey(int key) {
 		this.key = key;
 	}
 

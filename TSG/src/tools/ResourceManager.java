@@ -9,14 +9,14 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class ResourceManager {
 
-	public static HashMap<String,Texture> textureManager;
+	public static HashMap<Integer,Texture> textureManager;
 	
 	static{
-		textureManager = new HashMap<String,Texture>();
+		textureManager = new HashMap<Integer,Texture>();
 	}
 	
 	
-	public static boolean loadTexture(String filePath, String key) throws IOException{
+	public static boolean loadTexture(String filePath, int key) throws IOException{
 		if(!textureManager.containsKey(key)){//If the manager doesn't contain the key
 			Texture tempTexture = TextureLoader.getTexture(filePath.substring(filePath.length()-3)
 					,ResourceLoader.getResourceAsStream(filePath));//Loads resource with Slick-util
@@ -29,14 +29,14 @@ public class ResourceManager {
 		}
 	}
 	
-	public static Texture getTexture(String key){
+	public static Texture getTexture(int key){
 		if(textureManager.containsKey(key))
 			return textureManager.get(key);
 		else
 			return null;
 	}
 	
-	public static boolean unloadTexture(String key){
+	public static boolean unloadTexture(int key){
 		if(textureManager.containsKey(key)){
 			textureManager.remove(key);
 			return true;
