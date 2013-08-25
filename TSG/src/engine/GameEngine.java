@@ -48,11 +48,13 @@ public class GameEngine {
 	
 	public static void addToRenderables(RenderableObject r){
 		toRender.add(r);
+		System.out.println(r.getClass().toString());
 	}
 	
 	private static void render(){
 		for(RenderableObject r : toRender){
 			r.renderSelf();
+			System.out.println(r.getClass().toString()+" rendered");
 		}
 	}
 	
@@ -64,7 +66,7 @@ public class GameEngine {
 			}
 			render();
 			Display.update();
-			Display.sync(60);
+			Display.sync(20);
 		}
 	}
 }

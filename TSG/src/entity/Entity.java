@@ -4,15 +4,18 @@ public abstract class Entity {
 
 	protected int x,y,width,height;
 	
-	public Entity(){
+	protected Entity(){
 		x = 0;
 		y = 0;
 		width = 0;
 		height = 0;
 	}
 	
-	public Entity(int x, int y, int width, int height){
-		
+	protected Entity(int x, int y, int width, int height){
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
 	}
 	
 	public int getX(){

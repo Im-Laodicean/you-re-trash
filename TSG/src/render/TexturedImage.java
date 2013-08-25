@@ -8,14 +8,13 @@ import org.newdawn.slick.Color;
 
 import tools.ResourceManager;
 
-public class TexturedImage extends RenderableObject{
+public class TexturedImage{
 
 	protected String imagePath;
 	protected int key;
 
 	//Basic constructor
-	public TexturedImage(int x, int y, int width, int height, String imagePath, int key){
-		super(x,y,width,height);
+	public TexturedImage(String imagePath, int key){
 		
 		this.imagePath = imagePath;
 		this.key = key;
@@ -27,26 +26,8 @@ public class TexturedImage extends RenderableObject{
 		}
 	}
 	
-	//Sets width and height to image dimensions
-	public TexturedImage(int x, int y, String imagePath, int key){
-		this.imagePath = imagePath;
-		this.key = key;
-		
-		try {
-			ResourceManager.loadTexture(imagePath, key);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		super.x = x;
-		super.y = y;
-		super.width = ResourceManager.getTexture(key).getImageWidth();
-		super.height = ResourceManager.getTexture(key).getImageHeight();
-		System.out.println(key + ": " + width + "  , " + height);
-		
-	}
 
-	public void renderSelf() {
+	public void draw(int x, int y, int width, int height) {
 		Color.white.bind();
 		ResourceManager.getTexture(key).bind();
 		
