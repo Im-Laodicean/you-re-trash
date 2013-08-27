@@ -6,7 +6,16 @@ import org.lwjgl.opengl.DisplayMode;
 
 
 public class GameLoop {
+	/**Determines if the game is to quit. 
+	 * 
+	 */
 	public static boolean isFinished;
+	
+	/**Creates the Display, sets up the appropriate OpenGL parameters,
+	 * and initializes the render manager and input handler, as well as the logic engine.
+	 * 
+	 * @throws LWJGLException
+	 */
 	public static void init() throws LWJGLException{
 		isFinished = false;
 		
@@ -28,7 +37,9 @@ public class GameLoop {
 		Display.create();
 	}
 	
-	
+	/**Runs the game using a 60 FPS cap and variable time-steps
+	 * 
+	 */
 	public static void run(){
 		long lastLoopTime = System.nanoTime();//first loop time
 		final int NOMINAL_FPS = 60;
@@ -45,7 +56,7 @@ public class GameLoop {
 			
 			timeSinceFPSCheck+=timeSinceUpdate;
 			fps++;
-			
+			//mostly debug purposes
 			if(timeSinceFPSCheck>=1000000000){
 				System.out.println(fps);
 				fps = 0;
@@ -55,11 +66,17 @@ public class GameLoop {
 			if(Display.isCloseRequested()){
 				isFinished = true;
 			}
+			//update game state with appropriate delta 
+			//and the keys it needs to respond to
 			GameLogic.update(delta, GameInputHandler.keysHeld);
+			//render
 			GameRenderManager.render();
+			//poll the keyboard
 			GameInputHandler.pollKeyboardInput();
+			
+			//update the display
 			Display.update();
-			Display.sync(20);
+			Display.sync(60);
 		}
 	}
 }
