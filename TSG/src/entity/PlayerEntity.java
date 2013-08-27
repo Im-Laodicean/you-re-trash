@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.lwjgl.input.Keyboard;
 
+import engine.Physics;
 import render.RenderableObject;
 import render.Sprite;
 import tools.ResourceManager;
@@ -20,8 +21,8 @@ public class PlayerEntity extends Entity implements RenderableObject{
 		super(20,20,100,100);
 		this.setName(name);
 		key = name.hashCode();
-		ResourceManager.loadTexture("Riven.png", key);
-		player = new Sprite(key, this.getWidth(), this.getHeight(), 4, 4,1);
+		ResourceManager.loadTexture("smurf_sprite.png", key);
+		player = new Sprite(key, 128, 128, 4, 4,1);
 	}
 	
 	@Override
@@ -63,12 +64,13 @@ public class PlayerEntity extends Entity implements RenderableObject{
 	@Override
 	public void handleKeyInputs(List<Integer> keys) {
 		if(keys.contains(Keyboard.KEY_D))
-			setXVelocity(2);
-		else setXVelocity(0);
-		
-		if(keys.contains(Keyboard.KEY_A))
-			setXVelocity(-2);
-		else setXVelocity(0);
+			setLinearTrajectory(2, 0);
+		else if(keys.contains(Keyboard.KEY_A))
+			setLinearTrajectory(-2, 0);
+		else{
+			setNoTrajectory();
+			player.reset();
+		}
 	}
 	
 }

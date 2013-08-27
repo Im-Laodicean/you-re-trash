@@ -26,6 +26,7 @@ public class GameLoop {
 		GameLogic.init();
 		GameRenderManager.init();
 		GameInputHandler.init();
+		Physics.init(1);
 	}
 	
 	private static void createDisplay() throws LWJGLException{
@@ -55,7 +56,7 @@ public class GameLoop {
 			
 			//if we run at NOMINAL_FPS, then delta should be around 1
 			double delta = timeSinceUpdate / ((double)OPTIMAL_INTERVAL);
-			
+			System.out.println(delta);
 			timeSinceFPSCheck+=timeSinceUpdate;
 			fps++;
 			//mostly debug purposes
@@ -70,7 +71,7 @@ public class GameLoop {
 			}
 			//update game state with appropriate delta 
 			//and the keys it needs to respond to
-			GameLogic.update(delta, GameInputHandler.keysHeld);
+			GameLogic.update(GameInputHandler.keysHeld, delta);
 			//render
 			GameRenderManager.render(delta);
 			//poll the keyboard

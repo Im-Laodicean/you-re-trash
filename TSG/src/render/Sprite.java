@@ -98,6 +98,11 @@ public class Sprite {
 		if(frame >= totalFrames)
 			frame = 0;
 	}
+	
+	public void reset(){
+		frame = 0;
+		ticks = 0;
+	}
 
 }
 
