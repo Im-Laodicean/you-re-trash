@@ -1,7 +1,4 @@
 /engine
-/render
-/tools
-/ui
-/entity
 /xml
-/input
+/map
+/render
