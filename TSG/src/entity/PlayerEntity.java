@@ -4,6 +4,8 @@ package entity;
 import java.io.IOException;
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import render.RenderableObject;
 import render.Sprite;
 import tools.ResourceManager;
@@ -19,7 +21,7 @@ public class PlayerEntity extends Entity implements RenderableObject{
 		this.setName(name);
 		key = name.hashCode();
 		ResourceManager.loadTexture("Riven.png", key);
-		player = new Sprite(key, this.getWidth(), this.getHeight(), 4, 4);
+		player = new Sprite(key, this.getWidth(), this.getHeight(), 4, 4,1);
 	}
 	
 	@Override
@@ -42,8 +44,8 @@ public class PlayerEntity extends Entity implements RenderableObject{
 		height = h;
 	}
 	
-	public void renderSelf() {
-		player.drawNextFrame(x, y);
+	public void renderSelf(double delta) {
+		player.drawNextFrame(x, y, delta);
 	}
 	@Override
 	public boolean isRenderable() {
@@ -60,7 +62,13 @@ public class PlayerEntity extends Entity implements RenderableObject{
 
 	@Override
 	public void handleKeyInputs(List<Integer> keys) {
-		//needs to be filled in
+		if(keys.contains(Keyboard.KEY_D))
+			setXVelocity(2);
+		else setXVelocity(0);
+		
+		if(keys.contains(Keyboard.KEY_A))
+			setXVelocity(-2);
+		else setXVelocity(0);
 	}
 	
 }

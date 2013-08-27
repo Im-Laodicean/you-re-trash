@@ -30,10 +30,10 @@ public class GameRenderManager {
 		toRender = new ArrayList<RenderableObject>();
 	}
 	
-	public static void render() {
+	public static void render(double delta) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		for(RenderableObject ro: toRender)
-			ro.renderSelf();
+			ro.renderSelf(delta);
 	}
 
 	/**DO NOT CALL THIS OUTSIDE OF GameLogic at least for now. 

@@ -12,8 +12,9 @@ public class Sprite {
 	 */
 	int key, frame, totalFrames;
 	int width, height, rows, columns;
-	int ticks,numberOfTicks;
-
+	int numberOfTicks;
+	double ticks, speed;
+	long lastChange;
 	/**Loads a spritesheet using a given texture's key. 
 	 * 
 	 * @param key - Key of texture
@@ -21,13 +22,15 @@ public class Sprite {
 	 * @param height - height of each sprite
 	 * @param rows - number of rows
 	 * @param columns - number of columns
+	 * @param speed - speed of animation
 	 */
-	public Sprite(int key, int width, int height, int rows, int columns){
+	public Sprite(int key, int width, int height, int rows, int columns, double speed){
 		this.key = key;
 		this.width = width;
 		this.height = height;
 		this.rows = rows;
 		this.columns = columns;
+		this.speed = speed;
 		frame = 0;
 		totalFrames = rows*columns;
 
@@ -39,9 +42,14 @@ public class Sprite {
 	 * 
 	 * @param x
 	 * @param y
+	 * @param delta 
 	 */
-	public void drawNextFrame(int x, int y){
-
+	public void drawNextFrame(int x, int y, double delta){
+		//debug info
+		if(lastChange==0)
+			lastChange = System.nanoTime();
+		
+		
 		//Need to bind the texture, very expensive operation
 		//Color.white.bind();
 		ResourceManager.getTexture(key).bind();
@@ -73,15 +81,17 @@ public class Sprite {
 			GL11.glVertex2f(x + width, y);
 		}
 		GL11.glEnd();
-		frame++;
-		if(frame==totalFrames)
-			frame = 1;
 
-		//Increment what is being shown
-		ticks++;
-		if(ticks == numberOfTicks){
+		//Increment what is being shown AT THE APPROPRIATE RATE, given delta
+		System.out.println("Delta: "+delta);
+		ticks+=speed*delta;
+		if(ticks >= numberOfTicks){
 			ticks = 0;
 			frame++;
+			
+			//again, debug
+			System.out.println((System.nanoTime()-lastChange)/1000000000.0);
+			lastChange = System.nanoTime();
 		}
 
 		//Reset if reached the max number of frames

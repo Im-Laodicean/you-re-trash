@@ -41,7 +41,7 @@ public class TestEntity extends Entity implements RenderableObject{
 	}
 
 	@Override
-	public void renderSelf() {
+	public void renderSelf(double delta) {
 		img.draw(x, y, width, height);
 	}
 	@Override

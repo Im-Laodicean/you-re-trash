@@ -42,6 +42,7 @@ public class GameLogic {
 	public static void update(double delta, List<Integer> keys) {
 		for(Entity e:entities){
 			e.handleKeyInputs(keys);
+			e.setX(e.getX()+(int)(delta*e.getXVelocity()));
 		}
 	}
 }

@@ -52,6 +52,8 @@ public class GameLoop {
 			long curTime = System.nanoTime();
 			long timeSinceUpdate = curTime - lastLoopTime;
 			lastLoopTime = curTime;
+			
+			//if we run at NOMINAL_FPS, then delta should be around 1
 			double delta = timeSinceUpdate / ((double)OPTIMAL_INTERVAL);
 			
 			timeSinceFPSCheck+=timeSinceUpdate;
@@ -70,13 +72,12 @@ public class GameLoop {
 			//and the keys it needs to respond to
 			GameLogic.update(delta, GameInputHandler.keysHeld);
 			//render
-			GameRenderManager.render();
+			GameRenderManager.render(delta);
 			//poll the keyboard
 			GameInputHandler.pollKeyboardInput();
 			
 			//update the display
 			Display.update();
-			Display.sync(60);
 		}
 	}
 }
