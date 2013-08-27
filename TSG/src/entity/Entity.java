@@ -34,8 +34,10 @@ public abstract class Entity {
 		return height;
 	}
 	
-	protected abstract void setX();
-	protected abstract void setY();
-	protected abstract void setWidth();
-	protected abstract void setHeight();
+	public abstract boolean isRenderable();
+	
+	public abstract void setX();
+	public abstract void setY();
+	public abstract void setWidth();
+	public abstract void setHeight();
 }

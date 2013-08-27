@@ -60,7 +60,7 @@ public class Sprite {
 			GL11.glVertex2f(x,y+height);
 		GL11.glEnd();
 		frame++;
-		if(frame==totalWidth)
+		if(frame==totalFrames)
 			frame = 1;
 	}
 	

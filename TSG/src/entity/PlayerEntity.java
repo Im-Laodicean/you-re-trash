@@ -21,25 +21,25 @@ public class PlayerEntity extends Entity implements RenderableObject{
 	}
 	
 	@Override
-	protected void setX() {
+	public void setX() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void setY() {
+	public void setY() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void setWidth() {
+	public void setWidth() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void setHeight() {
+	public void setHeight() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -47,6 +47,12 @@ public class PlayerEntity extends Entity implements RenderableObject{
 	@Override
 	public void renderSelf() {
 		player.drawNextFrame(x, y);
+	}
+
+	@Override
+	public boolean isRenderable() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

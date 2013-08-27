@@ -5,16 +5,18 @@ import java.io.IOException;
 import org.lwjgl.LWJGLException;
 
 import render.TexturedImage;
-import engine.GameEngine;
+import engine.GameLogic;
+import engine.GameLoop;
 import entity.PlayerEntity;
+import entity.TestEntity;
 
 
 public class Main {
 	public static void main(String[]args) throws IOException{
 		try {
-			GameEngine.init();
-			GameEngine.addToRenderables(new PlayerEntity("hi"));
-			GameEngine.run();
+			GameLoop.init();
+			GameLogic.addEntity(new TestEntity());
+			GameLoop.run();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}	
