@@ -12,41 +12,41 @@ public class PlayerEntity extends Entity implements RenderableObject{
 	private String name;
 	private int key;
 	private Sprite player;
+	
 	public PlayerEntity(String name) throws IOException{
 		super(20,20,100,100);
-		this.name = name;
+		this.setName(name);
 		key = name.hashCode();
-		ResourceManager.loadTexture("test.png", key);
-		player = new Sprite(key, 100, 100, 2, 2);
+		ResourceManager.loadTexture("Riven.png", key);
+		player = new Sprite(key, this.getWidth(), this.getHeight(), 4, 4);
 	}
 	
-	@Override
 	protected void setX() {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	protected void setY() {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	protected void setWidth() {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
-	@Override
 	protected void setHeight() {
-		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
+	
 	public void renderSelf() {
 		player.drawNextFrame(x, y);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }
