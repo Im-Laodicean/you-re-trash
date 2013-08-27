@@ -20,7 +20,7 @@ public class GameLogic {
 	
 	
 	//TODO
-	public static void update() {
+	public static void update(double delta) {
 		
 	}
 }

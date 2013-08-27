@@ -37,11 +37,32 @@ public class GameLoop {
 	
 	
 	public static void run(){
+		long lastLoopTime = System.nanoTime();//first loop time
+		final int NOMINAL_FPS = 60;
+		final long OPTIMAL_INTERVAL = 1000000000 / NOMINAL_FPS;
+		long timeSinceFPSCheck = 0;
+		int fps = 0;
+		
+		
 		while(!isFinished){
+			long curTime = System.nanoTime();
+			long timeSinceUpdate = curTime - lastLoopTime;
+			lastLoopTime = curTime;
+			double delta = timeSinceUpdate / ((double)OPTIMAL_INTERVAL);
+			
+			timeSinceFPSCheck+=timeSinceUpdate;
+			fps++;
+			
+			if(timeSinceFPSCheck>=1000000000){
+				System.out.println(fps);
+				fps = 0;
+				timeSinceFPSCheck=0;
+			}
+			
 			if(Display.isCloseRequested()){
 				isFinished = true;
 			}
-			GameLogic.update();
+			GameLogic.update(delta);
 			GameRenderManager.render();
 			Display.update();
 			Display.sync(20);
