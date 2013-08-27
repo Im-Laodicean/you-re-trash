@@ -2,6 +2,7 @@ package entity;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import render.RenderableObject;
 import render.Sprite;
@@ -22,26 +23,23 @@ public class PlayerEntity extends Entity implements RenderableObject{
 	}
 	
 	@Override
-	public void setX() {
-		// TODO Auto-generated method stub
-		
+	public void setX(int x) {
+		this.x = x;
 	}
 
 	@Override
-	public void setY() {
-		// TODO Auto-generated method stub
-		
+	public void setY(int y) {
+		this.y = y;
 	}
 
 	@Override
-	public void setWidth() {
-		// TODO Auto-generated method stub
-		
+	public void setWidth(int w) {
+		width = w;
 	}
 
 	@Override
-	public void setHeight() {
-		// TODO Auto-generated method stub
+	public void setHeight(int h) {
+		height = h;
 	}
 	
 	public void renderSelf() {
@@ -58,6 +56,11 @@ public class PlayerEntity extends Entity implements RenderableObject{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public void handleKeyInputs(List<Integer> keys) {
+		//needs to be filled in
 	}
 	
 }

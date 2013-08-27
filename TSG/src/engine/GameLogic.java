@@ -3,6 +3,8 @@ package engine;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import entity.Entity;
 
 public class GameLogic {
@@ -20,7 +22,9 @@ public class GameLogic {
 	
 	
 	//TODO
-	public static void update(double delta) {
-		
+	public static void update(double delta, List<Integer> keys) {
+		for(Entity e:entities){
+			e.handleKeyInputs(keys);
+		}
 	}
 }

@@ -1,16 +1,8 @@
 package engine;
 
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glEnable;
-
-import java.util.ArrayList;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.GL11;
-
-import render.RenderableObject;
 
 
 public class GameLoop {
@@ -24,6 +16,7 @@ public class GameLoop {
 		
 		GameLogic.init();
 		GameRenderManager.init();
+		GameInputHandler.init();
 	}
 	
 	private static void createDisplay() throws LWJGLException{
@@ -62,8 +55,9 @@ public class GameLoop {
 			if(Display.isCloseRequested()){
 				isFinished = true;
 			}
-			GameLogic.update(delta);
+			GameLogic.update(delta, GameInputHandler.keysHeld);
 			GameRenderManager.render();
+			GameInputHandler.pollKeyboardInput();
 			Display.update();
 			Display.sync(20);
 		}

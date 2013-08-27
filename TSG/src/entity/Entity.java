@@ -1,8 +1,11 @@
 package entity;
 
+import java.util.List;
+
 public abstract class Entity {
 
 	protected int x,y,width,height;
+	protected double velocityX, velocityY;
 	
 	protected Entity(){
 		x = 0;
@@ -34,10 +37,27 @@ public abstract class Entity {
 		return height;
 	}
 	
+	public double getXVelocity(){
+		return velocityX;
+	}
+	
+	public double getYVelocity(){
+		return velocityY;
+	}
+	
 	public abstract boolean isRenderable();
 	
-	public abstract void setX();
-	public abstract void setY();
-	public abstract void setWidth();
-	public abstract void setHeight();
+	public abstract void setX(int x);
+	public abstract void setY(int y);
+	public abstract void setWidth(int w);
+	public abstract void setHeight(int h);
+	public abstract void handleKeyInputs(List<Integer> keys);
+	
+	public void setXVelocity(double vel){
+		velocityX = vel;
+	}
+	
+	public void setYVelocity(double vel){
+		velocityY = vel;
+	}
 }
