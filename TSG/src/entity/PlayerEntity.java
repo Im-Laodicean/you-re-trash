@@ -2,6 +2,9 @@ package entity;
 
 
 import java.io.IOException;
+import java.util.List;
+
+import org.lwjgl.input.Keyboard;
 
 import render.RenderableObject;
 import render.Sprite;
@@ -18,35 +21,54 @@ public class PlayerEntity extends Entity implements RenderableObject{
 		this.setName(name);
 		key = name.hashCode();
 		ResourceManager.loadTexture("Riven.png", key);
-		player = new Sprite(key, this.getWidth(), this.getHeight(), 4, 4);
+		player = new Sprite(key, this.getWidth(), this.getHeight(), 4, 4,1);
 	}
 	
-	protected void setX() {
-		
+	@Override
+	public void setX(int x) {
+		this.x = x;
 	}
 
-	protected void setY() {
-		
+	@Override
+	public void setY(int y) {
+		this.y = y;
 	}
 
-	protected void setWidth() {
+	@Override
+	public void setWidth(int w) {
+		width = w;
+	}
+
+	@Override
+	public void setHeight(int h) {
+		height = h;
+	}
 	
+	public void renderSelf(double delta) {
+		player.drawNextFrame(x, y, delta);
 	}
-
-	protected void setHeight() {
-		
+	@Override
+	public boolean isRenderable() {
+		// TODO Auto-generated method stub
+		return true;
 	}
-	
-	public void renderSelf() {
-		player.drawNextFrame(x, y);
-	}
-
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public void handleKeyInputs(List<Integer> keys) {
+		if(keys.contains(Keyboard.KEY_D))
+			setXVelocity(2);
+		else setXVelocity(0);
+		
+		if(keys.contains(Keyboard.KEY_A))
+			setXVelocity(-2);
+		else setXVelocity(0);
 	}
 	
 }

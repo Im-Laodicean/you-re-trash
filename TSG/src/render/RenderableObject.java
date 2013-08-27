@@ -1,5 +1,9 @@
 package render;
 
 public interface RenderableObject {
-	public abstract void renderSelf();
+	/**
+	 * 
+	 * @param delta
+	 */
+	public abstract void renderSelf(double delta);
 }
