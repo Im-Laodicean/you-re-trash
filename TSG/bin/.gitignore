@@ -1,7 +1,8 @@
 /engine
-/render
-/tools
-/ui
-/entity
 /xml
-/input
+/map
+/render
+/entity
+/ui
+/mapeditor.class
+/mapeditor
