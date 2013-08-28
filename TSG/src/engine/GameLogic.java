@@ -2,6 +2,7 @@ package engine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.lwjgl.input.Keyboard;
 
@@ -39,10 +40,10 @@ public class GameLogic {
 	
 	
 	//TODO
-	public static void update(double delta, List<Integer> keys) {
+	public static void update(Map<Integer, Boolean> keys) {
 		for(Entity e:entities){
 			e.handleKeyInputs(keys);
-			e.setX(e.getX()+(int)(delta*e.getXVelocity()));
+			Physics.updatePhysics(entities);
 		}
 	}
 }

@@ -2,6 +2,7 @@ package map;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import entity.Entity;
 import render.RenderableObject;
@@ -70,7 +71,9 @@ public class Tile extends Entity implements RenderableObject{
 		
 	}
 
-	public void handleKeyInputs(List<Integer> keys) {
+	@Override
+	public void handleKeyInputs(Map<Integer, Boolean> keys) {
+		// TODO Auto-generated method stub
 		
 	}
 

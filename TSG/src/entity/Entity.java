@@ -1,9 +1,14 @@
 package entity;
 
 import java.util.List;
+import java.util.Map;
+
+import engine.Physics;
+import engine.Physics.TrajectoryType;
 
 public abstract class Entity {
-
+	
+	protected TrajectoryType trajectoryType;
 	protected int x,y,width,height;
 	protected double velocityX, velocityY;
 	
@@ -12,6 +17,7 @@ public abstract class Entity {
 		y = 0;
 		width = 0;
 		height = 0;
+		trajectoryType = trajectoryType.NONE;
 	}
 	
 	protected Entity(int x, int y, int width, int height){
@@ -19,6 +25,7 @@ public abstract class Entity {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		trajectoryType = trajectoryType.NONE;
 	}
 	
 	public int getX(){
@@ -47,11 +54,19 @@ public abstract class Entity {
 	
 	public abstract boolean isRenderable();
 	
-	public abstract void setX(int x);
-	public abstract void setY(int y);
-	public abstract void setWidth(int w);
-	public abstract void setHeight(int h);
-	public abstract void handleKeyInputs(List<Integer> keys);
+	public void setX(int x){
+		this.x = x;
+	}
+	public void setY(int y){
+		this.y = y;
+	}
+	public void setWidth(int w){
+		width = w;
+	}
+	public void setHeight(int h){
+		this.height = h;
+	}
+	public abstract void handleKeyInputs(Map<Integer, Boolean> keys);
 	
 	public void setXVelocity(double vel){
 		velocityX = vel;
@@ -59,5 +74,32 @@ public abstract class Entity {
 	
 	public void setYVelocity(double vel){
 		velocityY = vel;
+	}	
+	
+	
+	public TrajectoryType getTrajectoryType(){
+		return trajectoryType;
+	}
+	
+	public void setNoTrajectory(){
+		setXVelocity(0);
+		setYVelocity(0);
+		trajectoryType = TrajectoryType.NONE;
+	}
+	
+	public void setLinearTrajectory(double initX, double initY){
+		setXVelocity(initX);
+		setYVelocity(initY);
+		trajectoryType = TrajectoryType.LINEAR;
+	}
+	
+	public void setBallisticTrajectory(double initX, double initY){
+		setXVelocity(initX);
+		setYVelocity(initY);
+		trajectoryType = TrajectoryType.BALLISTIC;
+	}
+	
+	public void setBallisticTrajectory(){
+		trajectoryType = TrajectoryType.BALLISTIC;
 	}
 }

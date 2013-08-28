@@ -3,9 +3,12 @@ package entity;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.lwjgl.input.Keyboard;
 
+import engine.Physics;
+import engine.Physics.TrajectoryType;
 import render.RenderableObject;
 import render.Sprite;
 import tools.ResourceManager;
@@ -15,15 +18,15 @@ public class PlayerEntity extends Entity implements RenderableObject{
 	private String name;
 	private int key;
 	private Sprite player;
-	
+
 	public PlayerEntity(String name) throws IOException{
 		super(20,20,100,100);
 		this.setName(name);
 		key = name.hashCode();
-		ResourceManager.loadTexture("Riven.png", key);
-		player = new Sprite(key, this.getWidth(), this.getHeight(), 4, 4,1);
+		ResourceManager.loadTexture("smurf_sprite.png", key);
+		player = new Sprite(key, 128, 128, 4, 4, 10);
 	}
-	
+
 	@Override
 	public void setX(int x) {
 		this.x = x;
@@ -43,7 +46,7 @@ public class PlayerEntity extends Entity implements RenderableObject{
 	public void setHeight(int h) {
 		height = h;
 	}
-	
+
 	public void renderSelf(double delta) {
 		player.drawNextFrame(x, y, delta);
 	}
@@ -61,14 +64,33 @@ public class PlayerEntity extends Entity implements RenderableObject{
 	}
 
 	@Override
-	public void handleKeyInputs(List<Integer> keys) {
-		if(keys.contains(Keyboard.KEY_D))
-			setXVelocity(2);
-		else setXVelocity(0);
-		
-		if(keys.contains(Keyboard.KEY_A))
-			setXVelocity(-2);
-		else setXVelocity(0);
+	public void handleKeyInputs(Map<Integer, Boolean> keys) {
+		if(keys.containsKey(Keyboard.KEY_D)){
+			if(keys.get(Keyboard.KEY_D)){
+				setLinearTrajectory(2, 0);
+				player.startAnimation();
+			}
+			else{
+				setNoTrajectory();
+				player.pauseAnimation();
+			}
+		}
+
+		if(keys.containsKey(Keyboard.KEY_A)){
+			if(keys.get(Keyboard.KEY_A)){
+				setLinearTrajectory(-2, 0);
+				player.startAnimation();
+			}
+			else{
+				setNoTrajectory();
+				player.pauseAnimation();
+			}
+		}
+		if(keys.containsKey(Keyboard.KEY_SPACE))
+			if(keys.get(Keyboard.KEY_SPACE)&&!getTrajectoryType().equals(TrajectoryType.BALLISTIC)){
+				setBallisticTrajectory();
+				System.out.println("SPACE");
+			}
 	}
-	
+
 }

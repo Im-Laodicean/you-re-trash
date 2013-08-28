@@ -12,9 +12,11 @@ public class Sprite {
 	 */
 	int key, frame, totalFrames;
 	int width, height, rows, columns;
-	int numberOfTicks;
-	double ticks, speed;
+	long timePerFrame;
+	long lastUpdateTime, timeSinceLastFrameChange;
+	double speed;
 	long lastChange;
+	boolean animate;
 	/**Loads a spritesheet using a given texture's key. 
 	 * 
 	 * @param key - Key of texture
@@ -22,7 +24,7 @@ public class Sprite {
 	 * @param height - height of each sprite
 	 * @param rows - number of rows
 	 * @param columns - number of columns
-	 * @param speed - speed of animation
+	 * @param speed - speed of animation in frames per second. For example, 5 speed means the animation advances 5 frames every second
 	 */
 	public Sprite(int key, int width, int height, int rows, int columns, double speed){
 		this.key = key;
@@ -34,8 +36,10 @@ public class Sprite {
 		frame = 0;
 		totalFrames = rows*columns;
 
-		ticks = 0;
-		numberOfTicks = 5;
+		lastUpdateTime = 0;
+		timePerFrame = (long)((1/speed)*1000000000.0);
+		System.out.println(timePerFrame);
+		animate = true;
 	}
 
 	/**Draws the next frame in this spritesheet
@@ -45,13 +49,37 @@ public class Sprite {
 	 * @param delta 
 	 */
 	public void drawNextFrame(int x, int y, double delta){
+		long curTime = System.nanoTime();
+		long timeSinceUpdate = System.nanoTime() - lastUpdateTime;
+		lastUpdateTime = curTime;
 		//debug info
 		if(lastChange==0)
 			lastChange = System.nanoTime();
-		
-		
+
+
 		//Need to bind the texture, very expensive operation
 		//Color.white.bind();
+		drawSubTexture(x, y);
+
+		//Increment what is being shown AT THE APPROPRIATE RATE, given delta
+		if(animate){
+			timeSinceLastFrameChange += timeSinceUpdate;
+			if(timeSinceLastFrameChange >= timePerFrame){
+				System.out.println(timeSinceLastFrameChange);
+				timeSinceLastFrameChange = 0;
+				frame++;
+
+				//again, debug
+				lastChange = System.nanoTime();
+			}
+
+			//Reset if reached the max number of frames
+			if(frame >= totalFrames)
+				frame = 0;
+		}
+	}
+
+	private void drawSubTexture(int x, int y) {
 		ResourceManager.getTexture(key).bind();
 
 		float textureWidth = ResourceManager.getTexture(key).getImageHeight();
@@ -81,22 +109,19 @@ public class Sprite {
 			GL11.glVertex2f(x + width, y);
 		}
 		GL11.glEnd();
+	}
 
-		//Increment what is being shown AT THE APPROPRIATE RATE, given delta
-		System.out.println("Delta: "+delta);
-		ticks+=speed*delta;
-		if(ticks >= numberOfTicks){
-			ticks = 0;
-			frame++;
-			
-			//again, debug
-			System.out.println((System.nanoTime()-lastChange)/1000000000.0);
-			lastChange = System.nanoTime();
-		}
+	public void stopAnimation(){
+		frame = 0;
+		lastUpdateTime = 0;
+	}
 
-		//Reset if reached the max number of frames
-		if(frame >= totalFrames)
-			frame = 0;
+	public void startAnimation(){
+		animate = true;
+	}
+
+	public void pauseAnimation(){
+		animate = false;
 	}
 
 }

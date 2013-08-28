@@ -19,7 +19,7 @@ public class GameInputHandler {
 	/**List of all keys pressed as of last poll. 
 	 * 
 	 */
-	public static List<Integer>keysHeld;
+	public static Map<Integer, Boolean>keysHeld;
 	
 	/**Initializes the Keyboard and Mouse. 
 	 * 
@@ -27,7 +27,7 @@ public class GameInputHandler {
 	 */
 	public static void init() throws LWJGLException{
 		Keyboard.create();
-		keysHeld = new ArrayList<Integer>();
+		keysHeld = new HashMap<Integer, Boolean>();
 		Mouse.create();
 	}
 	
@@ -36,10 +36,9 @@ public class GameInputHandler {
 	 * 
 	 */
 	public static void pollKeyboardInput(){
+		keysHeld.clear();
 		while(Keyboard.next()){
-			if(Keyboard.getEventKeyState())
-				keysHeld.add(Keyboard.getEventKey());
-			else keysHeld.remove(new Integer(Keyboard.getEventKey()));
+			keysHeld.put(Keyboard.getEventKey(), Keyboard.getEventKeyState());
 		}
 	}
 }
