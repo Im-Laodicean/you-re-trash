@@ -5,7 +5,9 @@ import java.util.List;
 import entity.Entity;
 
 public class Physics {
-	public static final int NONE = 0, LINEAR = 1, BALLISTIC = 2;
+	public enum TrajectoryType{
+		NONE, LINEAR, BALLISTIC;
+	}
 	public static double GRAVITY;
 
 	public static void init(double accelerationOfGravity){
@@ -22,11 +24,11 @@ public class Physics {
 		switch(e.getTrajectoryType()){
 		
 		//stationary objects don't move
-		case(NONE):
+		case NONE:
 		break;
 		
 		//Linear (i.e. unaffected by gravity)
-		case(LINEAR):
+		case LINEAR:
 			if(e.getXVelocity()!=0)
 				e.setX(e.getX()+(int)(e.getXVelocity()));
 		if(e.getYVelocity()!=0)
@@ -34,8 +36,8 @@ public class Physics {
 		break;
 		
 		//Ballistic trajectories
-		case(BALLISTIC):
-			if(e.getTrajectoryType()!=BALLISTIC)
+		case BALLISTIC :
+			if(!e.getTrajectoryType().equals(TrajectoryType.BALLISTIC))
 				throw new IllegalArgumentException("Entity is not in ballistic motion");
 		//horizontal motion unaffected
 			e.setX(e.getX()+(int)(e.getXVelocity()));

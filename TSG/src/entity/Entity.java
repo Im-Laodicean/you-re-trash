@@ -1,12 +1,14 @@
 package entity;
 
 import java.util.List;
+import java.util.Map;
 
 import engine.Physics;
+import engine.Physics.TrajectoryType;
 
 public abstract class Entity {
 	
-	protected int trajectoryType;
+	protected TrajectoryType trajectoryType;
 	protected int x,y,width,height;
 	protected double velocityX, velocityY;
 	
@@ -15,6 +17,7 @@ public abstract class Entity {
 		y = 0;
 		width = 0;
 		height = 0;
+		trajectoryType = trajectoryType.NONE;
 	}
 	
 	protected Entity(int x, int y, int width, int height){
@@ -22,6 +25,7 @@ public abstract class Entity {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		trajectoryType = trajectoryType.NONE;
 	}
 	
 	public int getX(){
@@ -62,7 +66,7 @@ public abstract class Entity {
 	public void setHeight(int h){
 		this.height = h;
 	}
-	public abstract void handleKeyInputs(List<Integer> keys);
+	public abstract void handleKeyInputs(Map<Integer, Boolean> keys);
 	
 	public void setXVelocity(double vel){
 		velocityX = vel;
@@ -73,29 +77,29 @@ public abstract class Entity {
 	}	
 	
 	
-	public int getTrajectoryType(){
+	public TrajectoryType getTrajectoryType(){
 		return trajectoryType;
 	}
 	
 	public void setNoTrajectory(){
 		setXVelocity(0);
 		setYVelocity(0);
-		trajectoryType = Physics.NONE;
+		trajectoryType = TrajectoryType.NONE;
 	}
 	
 	public void setLinearTrajectory(double initX, double initY){
 		setXVelocity(initX);
 		setYVelocity(initY);
-		trajectoryType = Physics.LINEAR;
+		trajectoryType = TrajectoryType.LINEAR;
 	}
 	
 	public void setBallisticTrajectory(double initX, double initY){
 		setXVelocity(initX);
 		setYVelocity(initY);
-		trajectoryType = Physics.BALLISTIC;
+		trajectoryType = TrajectoryType.BALLISTIC;
 	}
 	
 	public void setBallisticTrajectory(){
-		trajectoryType = Physics.BALLISTIC;
+		trajectoryType = TrajectoryType.BALLISTIC;
 	}
 }

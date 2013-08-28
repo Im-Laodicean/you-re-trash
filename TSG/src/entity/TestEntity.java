@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.List;
+import java.util.Map;
 
 import engine.Physics;
 import render.RenderableObject;
@@ -23,7 +24,8 @@ public class TestEntity extends Entity implements RenderableObject{
 		img.draw(x, y, width, height);
 	}
 	@Override
-	public void handleKeyInputs(List<Integer> keys) {
-		//do nothing
+	public void handleKeyInputs(Map<Integer, Boolean> keys) {
+		// TODO Auto-generated method stub
+		
 	}
 }
