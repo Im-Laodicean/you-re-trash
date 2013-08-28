@@ -39,10 +39,10 @@ public class GameLogic {
 	
 	
 	//TODO
-	public static void update(List<Integer> keys, double delta) {
+	public static void update(List<Integer> keys) {
 		for(Entity e:entities){
 			e.handleKeyInputs(keys);
-			Physics.updatePhysics(entities, delta);
+			Physics.updatePhysics(entities);
 		}
 	}
 }

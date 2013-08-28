@@ -15,7 +15,7 @@ public class Main {
 	public static void main(String[]args) throws IOException{
 		try {
 			GameLoop.init();
-			GameLogic.addEntity(new TestEntity());
+			GameLogic.addEntity(new PlayerEntity(""));
 			GameLoop.run();
 		} catch (LWJGLException e) {
 			e.printStackTrace();

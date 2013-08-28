@@ -22,7 +22,7 @@ public class PlayerEntity extends Entity implements RenderableObject{
 		this.setName(name);
 		key = name.hashCode();
 		ResourceManager.loadTexture("smurf_sprite.png", key);
-		player = new Sprite(key, 128, 128, 4, 4,1);
+		player = new Sprite(key, 128, 128, 4, 4, 10);
 	}
 	
 	@Override
@@ -63,14 +63,22 @@ public class PlayerEntity extends Entity implements RenderableObject{
 
 	@Override
 	public void handleKeyInputs(List<Integer> keys) {
-		if(keys.contains(Keyboard.KEY_D))
+		if(keys.contains(Keyboard.KEY_D)){
 			setLinearTrajectory(2, 0);
-		else if(keys.contains(Keyboard.KEY_A))
-			setLinearTrajectory(-2, 0);
-		else{
-			setNoTrajectory();
-			player.reset();
+			player.startAnimation();
 		}
+		else if(keys.contains(Keyboard.KEY_A)){
+			setLinearTrajectory(-2, 0);
+			player.startAnimation();
+		}
+		
+		if(keys.contains(Keyboard.KEY_SPACE)&&getTrajectoryType()!=Physics.BALLISTIC){
+				setBallisticTrajectory();
+		}
+//		else{
+//			setNoTrajectory();
+//			player.pauseAnimation();
+//		}
 	}
 	
 }

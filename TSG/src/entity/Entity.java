@@ -94,4 +94,8 @@ public abstract class Entity {
 		setYVelocity(initY);
 		trajectoryType = Physics.BALLISTIC;
 	}
+	
+	public void setBallisticTrajectory(){
+		trajectoryType = Physics.BALLISTIC;
+	}
 }

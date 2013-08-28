@@ -12,13 +12,13 @@ public class Physics {
 		GRAVITY = accelerationOfGravity;
 	}
 
-	public static void updatePhysics(List<Entity>entities, double delta){
+	public static void updatePhysics(List<Entity>entities){
 		for(Entity e : entities){
-			calculateNextPosition(e, delta);
+			calculateNextPosition(e);
 		}
 	}
 
-	private static void calculateNextPosition(Entity e, double delta){
+	private static void calculateNextPosition(Entity e){
 		switch(e.getTrajectoryType()){
 		
 		//stationary objects don't move
@@ -28,9 +28,9 @@ public class Physics {
 		//Linear (i.e. unaffected by gravity)
 		case(LINEAR):
 			if(e.getXVelocity()!=0)
-				e.setX(e.getX()+(int)(e.getXVelocity()*delta));
+				e.setX(e.getX()+(int)(e.getXVelocity()));
 		if(e.getYVelocity()!=0)
-			e.setY(e.getY()+(int)(e.getYVelocity()*delta));
+			e.setY(e.getY()+(int)(e.getYVelocity()));
 		break;
 		
 		//Ballistic trajectories
@@ -38,11 +38,11 @@ public class Physics {
 			if(e.getTrajectoryType()!=BALLISTIC)
 				throw new IllegalArgumentException("Entity is not in ballistic motion");
 		//horizontal motion unaffected
-			e.setX(e.getX()+(int)(e.getXVelocity()*delta));
+			e.setX(e.getX()+(int)(e.getXVelocity()));
 
-			e.setY(e.getY()-(int)(e.getYVelocity()*delta));
+			e.setY(e.getY()-(int)(e.getYVelocity()));
 			//apply acceleration due to gravity
-			e.setYVelocity(e.getYVelocity()-GRAVITY*delta);
+			e.setYVelocity(e.getYVelocity()-GRAVITY);
 		break;
 		default:
 			break;
