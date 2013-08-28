@@ -1,8 +1,4 @@
-/engine
-/xml
-/map
-/render
 /entity
-/ui
-/mapeditor.class
-/mapeditor
+/render
+/engine
+/tools

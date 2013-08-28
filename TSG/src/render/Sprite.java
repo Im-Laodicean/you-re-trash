@@ -39,7 +39,7 @@ public class Sprite {
 		lastUpdateTime = 0;
 		timePerFrame = (long)((1/speed)*1000000000.0);
 		System.out.println(timePerFrame);
-		animate = true;
+		animate = false;
 	}
 
 	/**Draws the next frame in this spritesheet
@@ -114,6 +114,7 @@ public class Sprite {
 	public void stopAnimation(){
 		frame = 0;
 		lastUpdateTime = 0;
+		animate = false;
 	}
 
 	public void startAnimation(){

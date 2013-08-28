@@ -18,13 +18,16 @@ public class PlayerEntity extends Entity implements RenderableObject{
 	private String name;
 	private int key;
 	private Sprite player;
-
+	private List<Integer>keyBinds;
+	
+	
 	public PlayerEntity(String name) throws IOException{
 		super(20,20,100,100);
 		this.setName(name);
 		key = name.hashCode();
 		ResourceManager.loadTexture("smurf_sprite.png", key);
 		player = new Sprite(key, 128, 128, 4, 4, 10);
+		
 	}
 
 	@Override
@@ -48,7 +51,7 @@ public class PlayerEntity extends Entity implements RenderableObject{
 	}
 
 	public void renderSelf(double delta) {
-		player.drawNextFrame(x, y, delta);
+		player.drawNextFrame(renderX, renderY, delta);
 	}
 	@Override
 	public boolean isRenderable() {
@@ -65,25 +68,28 @@ public class PlayerEntity extends Entity implements RenderableObject{
 
 	@Override
 	public void handleKeyInputs(Map<Integer, Boolean> keys) {
+		if(keys.size()==0)
+			return;
+		
 		if(keys.containsKey(Keyboard.KEY_D)){
 			if(keys.get(Keyboard.KEY_D)){
-				setLinearTrajectory(2, 0);
+				setLinearTrajectory(10, 0);
 				player.startAnimation();
 			}
 			else{
 				setNoTrajectory();
-				player.pauseAnimation();
+				player.stopAnimation();
 			}
 		}
 
 		if(keys.containsKey(Keyboard.KEY_A)){
 			if(keys.get(Keyboard.KEY_A)){
-				setLinearTrajectory(-2, 0);
+				setLinearTrajectory(-10, 0);
 				player.startAnimation();
 			}
 			else{
 				setNoTrajectory();
-				player.pauseAnimation();
+				player.stopAnimation();
 			}
 		}
 		if(keys.containsKey(Keyboard.KEY_SPACE))

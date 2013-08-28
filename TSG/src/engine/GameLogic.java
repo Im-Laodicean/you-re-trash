@@ -18,13 +18,14 @@ public class GameLogic {
 	/**List of all entities
 	 * 
 	 */
-	public static List<Entity> entities;
+	public static List<Entity> currentEntities, previousEntities;
 	
 	/**Initializes Entity list
 	 * 
 	 */
 	public static void init(){
-		entities = new ArrayList<Entity>();
+		currentEntities = new ArrayList<Entity>();
+		previousEntities = new ArrayList<Entity>();
 	}
 	
 	/**Adds an Entity. If the Entity returns <code>true</code> on <code>isRenderable</code>,
@@ -33,7 +34,8 @@ public class GameLogic {
 	 * @param e
 	 */
 	public static void addEntity(Entity e){
-		entities.add(e);
+		currentEntities.add(e);
+		previousEntities.add(e);
 		if(e.isRenderable())
 			GameRenderManager.addRenderable(e);
 	}
@@ -41,9 +43,14 @@ public class GameLogic {
 	
 	//TODO
 	public static void update(Map<Integer, Boolean> keys) {
-		for(Entity e:entities){
+		previousEntities = currentEntities.subList(0, currentEntities.size());
+		for(Entity e:currentEntities){
 			e.handleKeyInputs(keys);
-			Physics.updatePhysics(entities);
+			Physics.updatePhysics(currentEntities);
 		}
+	}
+	
+	public static void interpolate(double alpha){
+		Physics.interpolate(currentEntities, previousEntities, alpha);
 	}
 }

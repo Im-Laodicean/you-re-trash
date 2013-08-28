@@ -79,6 +79,9 @@ public class GameLoop {
 				accumulator -= LOGIC_STEP_TIME;
 			}
 			
+			double alpha = accumulator/LOGIC_STEP_TIME;
+			
+			GameLogic.interpolate(alpha);
 			
 			//render
 			double delta = timeSinceUpdate/OPTIMAL_INTERVAL;

@@ -21,7 +21,7 @@ public class TestEntity extends Entity implements RenderableObject{
 
 	@Override
 	public void renderSelf(double delta) {
-		img.draw(x, y, width, height);
+		img.draw(renderX, renderY, width, height);
 	}
 	@Override
 	public void handleKeyInputs(Map<Integer, Boolean> keys) {

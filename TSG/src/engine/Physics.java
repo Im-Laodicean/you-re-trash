@@ -50,4 +50,14 @@ public class Physics {
 			break;
 		}
 	}
+
+	public static void interpolate(List<Entity> currentEntities, List<Entity> previousEntities, double alpha) {
+		for(int i = 0;i<currentEntities.size();i++){
+			System.out.println("INTERPOLATE");
+			Entity curEntity = currentEntities.get(i);
+			Entity pastEntity = previousEntities.get(i);
+			curEntity.setRenderX((int)(curEntity.getX()*alpha + pastEntity.getX()*(1.0-alpha)));
+			curEntity.setRenderY((int)(curEntity.getY()*alpha + pastEntity.getY()*(1.0-alpha)));
+		}
+	}
 }

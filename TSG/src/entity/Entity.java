@@ -10,6 +10,7 @@ public abstract class Entity {
 	
 	protected TrajectoryType trajectoryType;
 	protected int x,y,width,height;
+	protected int renderX, renderY;
 	protected double velocityX, velocityY;
 	
 	protected Entity(){
@@ -36,6 +37,14 @@ public abstract class Entity {
 		return y;
 	}
 	
+	public int getRenderX(){
+		return renderX;
+	}
+	
+	public int getRenderY(){
+		return renderY;
+	}
+	
 	public int getWidth(){
 		return width;
 	}
@@ -60,6 +69,15 @@ public abstract class Entity {
 	public void setY(int y){
 		this.y = y;
 	}
+	
+	public void setRenderX(int renderX){
+		this.renderX = renderX;
+	}
+	
+	public void setRenderY(int renderY){
+		this.renderY = renderY;
+	}
+	
 	public void setWidth(int w){
 		width = w;
 	}
