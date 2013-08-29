@@ -1,6 +1,7 @@
 package mapeditor;
 
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
@@ -11,6 +12,7 @@ public class MapEditorWindow extends JFrame{
 	protected MainPanel mainPanel;
 	protected TileSetPanel tileSetPanel;
 	protected TileSetWindow tileSetWindow;
+	protected BufferedImage selectedTile;
 
 	public MapEditorWindow(){
 		super("Map Editor");
@@ -36,6 +38,12 @@ public class MapEditorWindow extends JFrame{
 				while(true){
 					repaint();
 					tileSetWindow.repaint();
+					selectedTile = tileSetPanel.getSelectedImage();
+					
+					if(selectedTile != null){
+						mainPanel.setSelectedTile(selectedTile);
+					}
+					
 					try {
 						for(int i = 0; i < 30; i ++){
 							Thread.sleep(1);

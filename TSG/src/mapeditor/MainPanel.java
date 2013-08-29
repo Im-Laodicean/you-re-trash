@@ -2,6 +2,7 @@ package mapeditor;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
@@ -10,10 +11,15 @@ public class MainPanel extends JPanel{
 	private static final long serialVersionUID = -2462774421884075753L;
 	
 	protected int width, height;
+	protected BufferedImage selectedTile;
 	
 	public MainPanel(){
 		super();
 		
+	}
+	
+	public void setSelectedTile(BufferedImage select){
+		selectedTile = select;
 	}
 	
 	public void setVariables(){
@@ -26,6 +32,10 @@ public class MainPanel extends JPanel{
 		g.setColor(Color.white);
 		if(getWidth() > 0 && getHeight() > 0)
 			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
+		if(selectedTile != null){
+			g.drawImage(selectedTile, 0, 0, 300, 300, null, null);
+		}
 	}
 
 }

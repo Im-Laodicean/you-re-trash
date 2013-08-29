@@ -40,6 +40,10 @@ public class TileSetWindow extends JFrame implements ActionListener{
 		menu = new JMenuBar();
 		addCompsToMenu();
 		this.setJMenuBar(menu);
+		
+		
+		scrollPane.requestFocus();
+		scrollPane.setFocusable(true);
 	}
 	
 	protected JMenuBar menu;
