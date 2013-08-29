@@ -1,8 +1,10 @@
 package mapeditor;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -20,6 +22,8 @@ public class TileSetPanel extends JPanel implements MouseListener{
 	private ArrayList<BufferedImage> frames;
 	private int width, height;
 	private BufferedImage selectedFrame;
+	protected int frame;
+	private int maxRow,maxCol;
 
 	public TileSetPanel(){
 		super();
@@ -39,7 +43,13 @@ public class TileSetPanel extends JPanel implements MouseListener{
 		if(tryAndLoadImg(file) && img != null){
 			this.setSize(new Dimension(img.getWidth(),img.getHeight()));
 			this.setPreferredSize(new Dimension(img.getWidth(),img.getHeight()));
+			this.setMaximumSize(new Dimension(img.getWidth(),img.getHeight()));
+
 			breakImageIntoSubImages();
+			
+			maxRow = img.getHeight() / height;
+			maxCol = img.getWidth() / width;
+			
 			return true;
 		}
 		else{
@@ -66,37 +76,58 @@ public class TileSetPanel extends JPanel implements MouseListener{
 	}
 
 	public void paint(Graphics g){
+		Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(2));
+        
 		//Clear Screen
-		g.setColor(Color.black);
+		g.setColor(Color.white);
 		g.fillRect(0,0, this.getWidth(), this.getHeight());
 
 		//Draw if img is loaded
 		if(img != null){
-			g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null, null);
-
-			g.setColor(Color.green);
+			//g.drawImage(img, 0, 0, img.getWidth(), img.getHeight(), null, null);
+			
+			int inc = 0;
+			for(int i = 0; i < maxRow; i++){
+				for(int j = 0; j < maxCol; j++){
+					g.drawImage(frames.get(inc), j*width, i*height, null,null);
+					inc++;
+				}
+			}
+			
+			
+			g.setColor(Color.RED);
 			for(int i = 0; i < img.getWidth()/width; i++){
-				g.drawLine(i*width, 0, i*width, img.getHeight());
+				g.drawLine(i*width, 0, i*width, maxRow*height);
 
 			}
 			for(int i = 0; i < img.getHeight() /height; i++){
-				g.drawLine(0, i*height, img.getWidth(), i*height);
+				g.drawLine(0, i*height, maxCol*width, i*height);
 			}
+			
+			g.drawRect(0, 0, maxCol*width, maxRow*height);
 			
 			//Draw selected box
 			if(this.getMousePosition() != null){
 				int row = ((int)this.getMousePosition().getY()/height)%height;
 				int col = ((int)this.getMousePosition().getX()/width)%width;
 			
-				g.setColor(Color.red);
+				g.setColor(Color.GREEN);
 				g.drawRect(col*width, row*height, width, height);
+				
+				g.setColor(Color.black);
+				g.drawString("(Row, Col): (" + row + " , " + col +")",5,10);
+				int frame2 = col + (row * img.getWidth()/ width);
+				g.drawString("Frame Selected: " + frame2, 5, 20);
 			}
 			
 		}
-
-
 	}
 
+	public int getSelectedFrame(){
+		return frame;
+	}
+	
 	public void breakImageIntoSubImages(){
 		if(img != null){
 			for(int i = 0; i < img.getHeight()/height; i++){
@@ -111,11 +142,11 @@ public class TileSetPanel extends JPanel implements MouseListener{
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if(e.getPoint() != null){
+		if(e.getPoint() != null && img != null){
 			int row = ((int)e.getPoint().getY()/height)%height;
 			int col = ((int)e.getPoint().getX()/width)%width;
 			
-			int frame = 0;
+			frame = col + (row * maxCol);
 			
 			selectedFrame = frames.get(frame);
 		}
