@@ -18,6 +18,16 @@ public class MapEditorTile {
 		this.passable = pass;
 		this.frame = frame;
 	}
+	
+	public MapEditorTile(MapEditorTile tile){
+		this.x = tile.x;
+		this.y = tile.y;
+		this.width = tile.width;
+		this.height = tile.height;
+		this.frame = tile.frame;
+		this.passable = tile.passable;
+		this.img = tile.img;
+	}
 
 	public int getWidth() {
 		return width;

@@ -12,6 +12,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
+import xml.XMLReader;
+
 public class MapEditorWindow extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = -7280454809807739828L;
@@ -109,6 +111,10 @@ public class MapEditorWindow extends JFrame implements ActionListener{
 			int tile = Integer.parseInt(JOptionPane.showInputDialog("Size of tiles: : "));
 			
 			mainPanel.makeNewMap(row, col, tile, tile);
+		}
+		
+		if(e.getSource() == saveMap){
+			XMLReader.saveMapInXML("sdfasdf.xml", mainPanel.map);
 		}
 		
 	}
