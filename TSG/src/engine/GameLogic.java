@@ -42,7 +42,7 @@ public class GameLogic {
 	
 	
 	//TODO
-	public static void update(Map<Integer, Boolean> keys) {
+	public static void update(Map<GameInputHandler.KeyBind, Boolean> keys) {
 		previousEntities = currentEntities.subList(0, currentEntities.size());
 		for(Entity e:currentEntities){
 			e.handleKeyInputs(keys);

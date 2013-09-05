@@ -3,6 +3,7 @@ package entity;
 import java.util.List;
 import java.util.Map;
 
+import engine.GameInputHandler;
 import engine.Physics;
 import render.RenderableObject;
 import render.TexturedImage;
@@ -24,7 +25,7 @@ public class TestEntity extends Entity implements RenderableObject{
 		img.draw(renderX, renderY, width, height);
 	}
 	@Override
-	public void handleKeyInputs(Map<Integer, Boolean> keys) {
+	public void handleKeyInputs(Map<GameInputHandler.KeyBind, Boolean> keys) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,4 +1,6 @@
-/entity
-/render
 /engine
+/entity
+/map
+/mapeditor
 /tools
+/ui

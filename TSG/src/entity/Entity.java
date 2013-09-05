@@ -3,6 +3,7 @@ package entity;
 import java.util.List;
 import java.util.Map;
 
+import engine.GameInputHandler;
 import engine.Physics;
 import engine.Physics.TrajectoryType;
 
@@ -84,7 +85,7 @@ public abstract class Entity {
 	public void setHeight(int h){
 		this.height = h;
 	}
-	public abstract void handleKeyInputs(Map<Integer, Boolean> keys);
+	public abstract void handleKeyInputs(Map<GameInputHandler.KeyBind, Boolean> keys);
 	
 	public void setXVelocity(double vel){
 		velocityX = vel;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import engine.GameInputHandler.KeyBind;
 import entity.Entity;
 import render.RenderableObject;
 import render.Sprite;
@@ -72,7 +73,7 @@ public class Tile extends Entity implements RenderableObject{
 	}
 
 	@Override
-	public void handleKeyInputs(Map<Integer, Boolean> keys) {
+	public void handleKeyInputs(Map<KeyBind, Boolean> keys) {
 		// TODO Auto-generated method stub
 		
 	}

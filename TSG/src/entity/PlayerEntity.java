@@ -2,32 +2,49 @@ package entity;
 
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.lwjgl.input.Keyboard;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.lwjgl.input.Keyboard;
+import org.xml.sax.SAXException;
+
+import engine.GameInputHandler;
 import engine.Physics;
 import engine.Physics.TrajectoryType;
 import render.RenderableObject;
 import render.Sprite;
+import tools.ConfigFileReader;
 import tools.ResourceManager;
+
+import static engine.GameInputHandler.KeyBind;
 
 public class PlayerEntity extends Entity implements RenderableObject{
 
 	private String name;
 	private int key;
 	private Sprite player;
-	private List<Integer>keyBinds;
-	
-	
+	private double moveSpeed;
+	private List<GameInputHandler.KeyBind>keyBinds;
+
+
 	public PlayerEntity(String name) throws IOException{
 		super(20,20,100,100);
 		this.setName(name);
 		key = name.hashCode();
 		ResourceManager.loadTexture("smurf_sprite.png", key);
 		player = new Sprite(key, 128, 128, 4, 4, 10);
+		moveSpeed = 2;
+		try {
+			keyBinds = ConfigFileReader.readKeyBindings();
+		} catch (SAXException | ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+
 	}
 
 	@Override
@@ -67,36 +84,14 @@ public class PlayerEntity extends Entity implements RenderableObject{
 	}
 
 	@Override
-	public void handleKeyInputs(Map<Integer, Boolean> keys) {
+	public void handleKeyInputs(Map<KeyBind, Boolean> keys) {
 		if(keys.size()==0)
 			return;
-		
-		if(keys.containsKey(Keyboard.KEY_D)){
-			if(keys.get(Keyboard.KEY_D)){
-				setLinearTrajectory(10, 0);
-				player.startAnimation();
-			}
-			else{
-				setNoTrajectory();
-				player.stopAnimation();
-			}
+		System.out.println(keys);
+		System.out.println(keys.containsKey(keyBinds.get(0)));
+		for(KeyBind kb:keyBinds){
+			Boolean state = keys.get(kb);
 		}
-
-		if(keys.containsKey(Keyboard.KEY_A)){
-			if(keys.get(Keyboard.KEY_A)){
-				setLinearTrajectory(-10, 0);
-				player.startAnimation();
-			}
-			else{
-				setNoTrajectory();
-				player.stopAnimation();
-			}
-		}
-		if(keys.containsKey(Keyboard.KEY_SPACE))
-			if(keys.get(Keyboard.KEY_SPACE)&&!getTrajectoryType().equals(TrajectoryType.BALLISTIC)){
-				setBallisticTrajectory();
-				System.out.println("SPACE");
-			}
 	}
 
 }

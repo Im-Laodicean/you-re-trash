@@ -1,8 +1,13 @@
 package engine;
 
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.xml.sax.SAXException;
 
 
 public class GameLoop {
@@ -18,8 +23,11 @@ public class GameLoop {
 	 * and initializes the render manager and input handler, as well as the logic engine.
 	 * 
 	 * @throws LWJGLException
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws SAXException 
 	 */
-	public static void init() throws LWJGLException{
+	public static void init() throws LWJGLException, SAXException, IOException, ParserConfigurationException{
 		isFinished = false;
 
 		createDisplay();
