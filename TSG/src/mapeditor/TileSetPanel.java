@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -109,8 +110,9 @@ public class TileSetPanel extends JPanel implements MouseListener{
 			
 			//Draw selected box
 			if(this.getMousePosition() != null){
-				int row = ((int)this.getMousePosition().getY()/height)%height;
-				int col = ((int)this.getMousePosition().getX()/width)%width;
+				Point point = this.getMousePosition();
+				int row = ((int)point.getY()/height)%height;
+				int col = ((int)point.getX()/width)%width;
 			
 				g.setColor(Color.GREEN);
 				g.drawRect(col*width, row*height, width, height);

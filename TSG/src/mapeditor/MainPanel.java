@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class MainPanel extends JPanel implements MouseListener{
-	
+
 	protected int width, height;
 	protected int tileWidth, tileHeight;
 	protected int row,col;
@@ -24,7 +24,7 @@ public class MainPanel extends JPanel implements MouseListener{
 	protected MapEditorMap map;
 
 	private boolean mousePressed;
-	
+
 	public MainPanel(){
 		super();
 		this.addMouseListener(this);
@@ -32,17 +32,17 @@ public class MainPanel extends JPanel implements MouseListener{
 		this.setFocusable(true);
 		makeNewMap(25,25,32,32);
 	}
-	
+
 	public void makeNewMap(int row, int col, int tileHeight, int tileWidth){
 		this.row = row;
 		this.col = col;
 		this.tileHeight = tileHeight;
 		this.tileWidth = tileWidth;
-		
+
 		this.setSize(new Dimension(col*tileWidth,row*tileHeight));
 		this.setPreferredSize(this.getSize());
 		this.setMaximumSize(this.getSize());
-		
+
 		map = new MapEditorMap(row,col,1);
 		mapLayer = 0;
 	}
@@ -59,8 +59,8 @@ public class MainPanel extends JPanel implements MouseListener{
 
 	public void paint(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(2));
-      
+		g2.setStroke(new BasicStroke(2));
+
 		//Clear Screen
 		g.setColor(Color.white);
 		if(getWidth() > 0 && getHeight() > 0)
@@ -69,7 +69,7 @@ public class MainPanel extends JPanel implements MouseListener{
 		if(map != null){
 			map.draw(g);
 		}
-		
+
 		//Only draw the grid if both the row and col are greater than 0, meaning that a map was map
 		if(row > 0 && col > 0){
 			g.setColor(Color.GREEN);
@@ -80,10 +80,10 @@ public class MainPanel extends JPanel implements MouseListener{
 			for(int i = 0; i < row; i++){
 				g.drawLine(0, i*tileHeight, col*tileWidth, i*tileHeight);
 			}
-			
+
 			g.drawRect(0, 0, tileWidth*col, tileHeight*row);
 		}
-		
+
 		g.setColor(Color.black);
 		if(this.getMousePosition() != null){
 			Point location = getMousePosition();
@@ -95,34 +95,36 @@ public class MainPanel extends JPanel implements MouseListener{
 			g.drawString("(Row, Col): (Mouse Not in Focus)", 5, 10);
 		}
 	}
-	
+
 	public void update(){
 		if(mousePressed){
 			if(getMousePosition() != null && map != null && selectedTile != null){
-				int row = ((int)getMousePosition().getY()/tileHeight)%tileHeight;
-				int col = ((int)getMousePosition().getX()/tileWidth)%tileWidth;
-				
-				int x = col * tileWidth;
-				int y = row * tileHeight;
-				
+				int selectedRow = ((int)getMousePosition().getY()/tileHeight)%tileHeight;
+				int selectedCol = ((int)getMousePosition().getX()/tileWidth)%tileWidth;
+
+
+				int x = selectedCol * tileWidth;
+				int y = selectedRow * tileHeight;
+
 				selectedTile.setX(x);
 				selectedTile.setY(y);
-				
-				map.getLayers()[mapLayer].getTiles()[row][col] = new MapEditorTile(selectedTile);
+
+				if(selectedRow < row && selectedCol < col)
+					map.getLayers()[mapLayer].getTiles()[selectedRow][selectedCol] = new MapEditorTile(selectedTile);
 			}
 		}
 	}
 
 	public void mouseClicked(MouseEvent e) {
-	
+
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		
+
 	}
 
 	public void mouseExited(MouseEvent e) {
-		
+
 	}
 
 	public void mousePressed(MouseEvent e) {

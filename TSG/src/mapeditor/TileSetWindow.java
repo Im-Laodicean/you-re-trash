@@ -49,7 +49,7 @@ public class TileSetWindow extends JFrame implements ActionListener{
 	protected JMenuBar menu;
 	protected JMenu file;
 	protected JMenuItem open;
-	protected JFileChooser fc = new JFileChooser();
+	protected JFileChooser fc = new JFileChooser(new java.io.File("."));
 	
 	public void addCompsToMenu(){
 		file = new JMenu("File");
